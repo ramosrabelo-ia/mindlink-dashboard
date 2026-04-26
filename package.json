@@ -1,0 +1,26 @@
+{
+  "name": "mindlink-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Landing page e dashboard interativo da MindLink para análise de internações por saúde mental no SUS.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest --run"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "recharts": "latest",
+    "framer-motion": "latest",
+    "tailwindcss": "latest",
+    "@tailwindcss/vite": "latest"
+  },
+  "devDependencies": {
+    "vitest": "latest"
+  }
+}
