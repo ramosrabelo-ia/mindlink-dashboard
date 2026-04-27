@@ -2,6 +2,30 @@ import { describe, expect, it } from "vitest";
 import { ufRows } from "./data";
 import { buildStates, formatNumber, formatPercent, mixColor, sumUfForYear } from "./utils";
 
+export function buildStates() { const rows = ufRows.filter((row) => row.year >= 2020 && row.year <= 2025);
+  const nationalTotal = rows.reduce((sum, row) => sum + row.Total, 0);
+  return Object.keys(ufNames).map((uf) => {const [name, region, x, y] = ufNames[uf];
+    const total = rows.reduce((sum, row) => sum + row[uf], 0);
+    const first = rows.find((row) => row.year === 2020)[uf];
+    const last = rows.find((row) => row.year === 2025)[uf];
+    const growth = ((last - first) / first) * 100;
+    const share = (total / nationalTotal) * 100;
+
+    return { uf,
+      name,
+      region,
+      x,
+      y,
+      total,
+      first,
+      last,
+      growth,
+      share,
+    };
+  });
+}
+
+
 describe("MindLink data helpers", () => {
   it("soma das UFs bate com total nacional em todos os anos", () => {
     for (const row of ufRows) {
