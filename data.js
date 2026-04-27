@@ -35,7 +35,7 @@ export const spCidRows = [
   { cid: "Esquizofrenia e transtornos delirantes", short: "Esquizofrenia", values: { 2019: 5078, 2020: 4336, 2021: 4134, 2022: 3823, 2023: 4170, 2024: 4802, 2025: 5026 }, avgCost: 1519.17, stay: 16.8 },
   { cid: "Transtornos de humor [afetivos]", short: "Humor", values: { 2019: 3319, 2020: 3078, 2021: 2881, 2022: 3017, 2023: 3444, 2024: 3806, 2025: 4112 }, avgCost: 879.68, stay: 13.3 },
   { cid: "Uso de álcool", short: "Álcool", values: { 2019: 1513, 2020: 1428, 2021: 1120, 2022: 959, 2023: 995, 2024: 1067, 2025: 1063 }, avgCost: 1522.15, stay: 9.6 },
-  { cid: "Demência", short: "Demência", values: { 2019: 224, 2020: 205, 2021: 159, 2022: 225, 2023: 262, 2024: 246, 2025: 295 }, avgCost: 10293.16, stay: 257.3 },
+  { cid: "Demência", short: "Demência", values: { 2019: 224, 2020: 205, 2021: 159, 2022: 225, 2023: 262, 2024: 246, 2025: 295 }, avgCost: 9802.84, stay: 38.8, insight: "Baixo volume, alto custo médio e maior permanência hospitalar no recorte 2020–2025."},
   { cid: "Transtornos neuróticos/stress/somatoformes", short: "Stress", values: { 2019: 229, 2020: 231, 2021: 239, 2022: 188, 2023: 268, 2024: 276, 2025: 307 }, avgCost: 470.93, stay: 9.5 },
   { cid: "Retardo mental", short: "Retardo", values: { 2019: 249, 2020: 221, 2021: 202, 2022: 258, 2023: 264, 2024: 276, 2025: 215 }, avgCost: 4315.63, stay: 25.5 },
   { cid: "Outros transtornos mentais", short: "Outros", values: { 2019: 1264, 2020: 1099, 2021: 1018, 2022: 1139, 2023: 1249, 2024: 1363, 2025: 1444 }, avgCost: 1315.11, stay: 14.7 },
