@@ -157,7 +157,7 @@ function BrazilMap({ selectedUf, onSelect, metric, year }) {
         <span>Menor</span>
         <div className="h-3 w-44 rounded-full" style={{ background: `linear-gradient(90deg, ${BRAND.mist}, ${BRAND.teal})` }} />
         <span>Maior</span>
-        <span className="ml-auto">Tamanho = total acumulado 2019–2025</span>
+        <span className="ml-auto">Tamanho = total acumulado 2020–2025</span>
       </div>
     </div>
   );
