@@ -10,7 +10,7 @@ export const BRAND = {
   white: "#FFFFFF",
 };
 
-export const years = [2019, 2020, 2021, 2022, 2023, 2024, 2025];
+export const years = [2020, 2021, 2022, 2023, 2024, 2025];
 
 export const ufRows = [
   { year: 2019, RO: 1469, AC: 1461, AM: 372, RR: 212, PA: 3092, AP: 129, TO: 1043, MA: 5247, PI: 2856, CE: 8249, RN: 2948, PB: 3899, PE: 6279, AL: 3891, SE: 1295, BA: 5837, MG: 18221, ES: 3261, RJ: 12344, SP: 59737, PR: 20032, SC: 14540, RS: 41609, MS: 1765, MT: 2323, GO: 10053, DF: 5061, Total: 237225 },
