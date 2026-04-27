@@ -1,9 +1,10 @@
 export const BRAND = {
   navy: "#1E3A5F",
   teal: "#0E7C7B",
-  coral: "#E4775E",
-  cream: "#F4F1EA",
-  ink: "#26364A",
+  coral: "#E07856",
+  cream: "#F5F2EC",
+  ink: "#2D3142",
+  graphite: "#2D3142",
   mist: "#DDEDEA",
   sand: "#E8E2D6",
   white: "#FFFFFF",
