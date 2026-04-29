@@ -9,3 +9,7 @@ O projeto transforma dados públicos do **SIH-SUS/DATASUS** sobre internações 
 ## Fonte dos dados
 
 Dados públicos do Ministério da Saúde / SIH-SUS / DATASUS, recorte CID-10 Capítulo V, organizados para fins acadêmicos e de prototipação da solução MindLink.
+
+##### Contribuidoras
+Luana Ramos Rabelo 
+Mariana Ishikawa Mota
