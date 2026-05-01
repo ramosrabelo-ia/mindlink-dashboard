@@ -202,7 +202,7 @@ function StateReadout({ uf }) {
       </div>
 
       <div className="mt-4 grid grid-cols-3 gap-3">
-        <div className="rounded-2xl bg-slate-50 p-3"><p className="text-xs text-slate-500">2019</p><p className="text-xl font-black" style={{ color: BRAND.navy }}>{formatNumber(state.first)}</p></div>
+        <div className="rounded-2xl bg-slate-50 p-3"><p className="text-xs text-slate-500">2020</p><p className="text-xl font-black" style={{ color: BRAND.navy }}>{formatNumber(state.first)}</p></div>
         <div className="rounded-2xl bg-slate-50 p-3"><p className="text-xs text-slate-500">2025</p><p className="text-xl font-black" style={{ color: BRAND.navy }}>{formatNumber(state.last)}</p></div>
         <div className="rounded-2xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Variação</p><p className="text-xl font-black" style={{ color: state.growth >= 0 ? BRAND.teal : BRAND.coral }}>{formatPercent(state.growth)}</p></div>
       </div>
@@ -334,6 +334,95 @@ function AgeProfile() {
   );
 }
 
+function MethodCard({ iconName, title, text }) {
+  return (
+    <div className="rounded-[1.6rem] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+      <div className="mb-4 grid h-11 w-11 place-items-center rounded-2xl" style={{ backgroundColor: BRAND.mist }}>
+        <Icon name={iconName} size={21} color={BRAND.teal} />
+      </div>
+      <h3 className="text-lg font-black" style={{ color: BRAND.navy }}>{title}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-slate-600">{text}</p>
+    </div>
+  );
+}
+
+function Dashboard() {
+  const [year, setYear] = useState("2025");
+  const [metric, setMetric] = useState("volume");
+  const [selectedUf, setSelectedUf] = useState("SP");
+  const selectedYear = Number(year);
+
+  const topStates = useMemo(() => {
+    const row = ufRows.find((item) => item.year === selectedYear) || ufRows[ufRows.length - 1];
+    return states
+      .map((state) => ({ ...state, value: row[state.uf] }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 8);
+  }, [selectedYear]);
+
+  const cidData = spCidRows
+    .map((row) => ({
+      ...row,
+      value: row.values[selectedYear],
+      estimatedCost: row.values[selectedYear] * row.avgCost,
+      bedDays: row.values[selectedYear] * row.stay,
+    }))
+    .sort((a, b) => b.value - a.value);
+
+  const totalBr = ufRows.reduce((sum, row) => sum + row.Total, 0);
+  const totalSp = ufRows.reduce((sum, row) => sum + row.SP, 0);
+  const sp2025 = ufRows.find((row) => row.year === 2025).SP;
+  const br2025 = ufRows.find((row) => row.year === 2025).Total;
+  const spGrowth = ((sp2025 - ufRows.find((row) => row.year === 2020).SP) / ufRows.find((row) => row.year === 2020).SP) * 100;
+  const brGrowth = ((br2025 - ufRows.find((row) => row.year === 2020).Total) / ufRows.find((row) => row.year === 2020).Total) * 100;
+  const visibleMetric = metric === "volume" ? "volume" : metric === "growth" ? "growth" : "share";
+
+  return (
+    <section id="dashboard" className="mx-auto max-w-7xl px-4 py-20 sm:px-8">
+      <div className="mb-8 grid gap-6 lg:grid-cols-[1fr_0.55fr] lg:items-end">
+        <div>
+          <SectionKicker>Dashboard interativo</SectionKicker>
+          <h2 className="mt-2 text-4xl font-black tracking-tight md:text-5xl" style={{ color: BRAND.navy }}>Explore a pressão hospitalar em saúde mental</h2>
+          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-600">A landing page conta a história com dados: começa no panorama nacional, aprofunda no estado piloto e fecha no detalhe por CID-10, faixa etária, permanência e custo médio.</p>
+        </div>
+        <div className="grid gap-3 rounded-[1.6rem] bg-white p-4 shadow-sm ring-1 ring-slate-200 sm:grid-cols-2">
+          <SelectBox label="Ano" value={year} onChange={setYear}>{years.map((item) => <option key={item} value={item}>{item}</option>)}</SelectBox>
+          <SelectBox label="Mapa" value={metric} onChange={setMetric}>
+            <option value="volume">Volume anual</option>
+            <option value="growth">Variação 2020→2025</option>
+            <option value="share">Participação nacional</option>
+          </SelectBox>
+        </div>
+      </div>
+
+      <div className="mb-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <StatCard iconName="database" label="Brasil · 2020–2025" value={formatNumber(totalBr)} caption="Internações nacionais por transtornos mentais e comportamentais." />
+        <StatCard iconName="mapPin" label="São Paulo · 2020–2025" value={formatNumber(totalSp)} caption="Maior volume absoluto entre as unidades federativas." tone="coral" />
+        <StatCard iconName="trending" label="Crescimento BR" value={formatPercent(brGrowth)} caption="Variação do volume anual nacional entre 2020 e 2025." />
+        <StatCard iconName="hospital" label="Crescimento SP" value={formatPercent(spGrowth)} caption="SP volta a acelerar no pós-2022 e sustenta o piloto da MindLink." />
+      </div>
+
+      <div className="grid gap-6 xl:grid-cols-[1.25fr_0.75fr]">
+        <BrazilMap selectedUf={selectedUf} onSelect={setSelectedUf} metric={visibleMetric} year={selectedYear} />
+        <div className="space-y-6">
+          <StateReadout uf={selectedUf} />
+          <TopRanking data={topStates} year={selectedYear} />
+        </div>
+      </div>
+
+      <div className="mt-6 grid gap-6 xl:grid-cols-2">
+        <NationalTrend />
+        <CidPressure data={cidData} year={selectedYear} />
+      </div>
+
+      <div className="mt-6 grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+        <AgeProfile />
+        <CostAndStay />
+      </div>
+    </section>
+  );
+}
+
 function CostAndStay() {
   const cidCostData = spCidRows
     .map((row) => ({ short: row.short, avgCost: row.avgCost, stay: row.stay }))
@@ -377,95 +466,6 @@ function CostAndStay() {
         </div>
       </div>
     </div>
-  );
-}
-
-function MethodCard({ iconName, title, text }) {
-  return (
-    <div className="rounded-[1.6rem] bg-white p-5 shadow-sm ring-1 ring-slate-200">
-      <div className="mb-4 grid h-11 w-11 place-items-center rounded-2xl" style={{ backgroundColor: BRAND.mist }}>
-        <Icon name={iconName} size={21} color={BRAND.teal} />
-      </div>
-      <h3 className="text-lg font-black" style={{ color: BRAND.navy }}>{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-slate-600">{text}</p>
-    </div>
-  );
-}
-
-function Dashboard() {
-  const [year, setYear] = useState("2025");
-  const [metric, setMetric] = useState("volume");
-  const [selectedUf, setSelectedUf] = useState("SP");
-  const selectedYear = Number(year);
-
-  const topStates = useMemo(() => {
-    const row = ufRows.find((item) => item.year === selectedYear) || ufRows[ufRows.length - 1];
-    return states
-      .map((state) => ({ ...state, value: row[state.uf] }))
-      .sort((a, b) => b.value - a.value)
-      .slice(0, 8);
-  }, [selectedYear]);
-
-  const cidData = spCidRows
-    .map((row) => ({
-      ...row,
-      value: row.values[selectedYear],
-      estimatedCost: row.values[selectedYear] * row.avgCost,
-      bedDays: row.values[selectedYear] * row.stay,
-    }))
-    .sort((a, b) => b.value - a.value);
-
-  const totalBr = ufRows.reduce((sum, row) => sum + row.Total, 0);
-  const totalSp = ufRows.reduce((sum, row) => sum + row.SP, 0);
-  const sp2025 = ufRows.find((row) => row.year === 2025).SP;
-  const br2025 = ufRows.find((row) => row.year === 2025).Total;
-  const spGrowth = ((sp2025 - ufRows.find((row) => row.year === 2019).SP) / ufRows.find((row) => row.year === 2019).SP) * 100;
-  const brGrowth = ((br2025 - ufRows.find((row) => row.year === 2019).Total) / ufRows.find((row) => row.year === 2019).Total) * 100;
-  const visibleMetric = metric === "volume" ? "volume" : metric === "growth" ? "growth" : "share";
-
-  return (
-    <section id="dashboard" className="mx-auto max-w-7xl px-4 py-20 sm:px-8">
-      <div className="mb-8 grid gap-6 lg:grid-cols-[1fr_0.55fr] lg:items-end">
-        <div>
-          <SectionKicker>Dashboard interativo</SectionKicker>
-          <h2 className="mt-2 text-4xl font-black tracking-tight md:text-5xl" style={{ color: BRAND.navy }}>Explore a pressão hospitalar em saúde mental</h2>
-          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-600">A landing page conta a história com dados: começa no panorama nacional, aprofunda no estado piloto e fecha no detalhe por CID-10, faixa etária, permanência e custo médio.</p>
-        </div>
-        <div className="grid gap-3 rounded-[1.6rem] bg-white p-4 shadow-sm ring-1 ring-slate-200 sm:grid-cols-2">
-          <SelectBox label="Ano" value={year} onChange={setYear}>{years.map((item) => <option key={item} value={item}>{item}</option>)}</SelectBox>
-          <SelectBox label="Mapa" value={metric} onChange={setMetric}>
-            <option value="volume">Volume anual</option>
-            <option value="growth">Variação 2019→2025</option>
-            <option value="share">Participação nacional</option>
-          </SelectBox>
-        </div>
-      </div>
-
-      <div className="mb-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <StatCard iconName="database" label="Brasil · 2019–2025" value={formatNumber(totalBr)} caption="Internações nacionais por transtornos mentais e comportamentais." />
-        <StatCard iconName="mapPin" label="São Paulo · 2019–2025" value={formatNumber(totalSp)} caption="Maior volume absoluto entre as unidades federativas." tone="coral" />
-        <StatCard iconName="trending" label="Crescimento BR" value={formatPercent(brGrowth)} caption="Variação do volume anual nacional entre 2019 e 2025." />
-        <StatCard iconName="hospital" label="Crescimento SP" value={formatPercent(spGrowth)} caption="SP volta a acelerar no pós-2022 e sustenta o piloto da MindLink." />
-      </div>
-
-      <div className="grid gap-6 xl:grid-cols-[1.25fr_0.75fr]">
-        <BrazilMap selectedUf={selectedUf} onSelect={setSelectedUf} metric={visibleMetric} year={selectedYear} />
-        <div className="space-y-6">
-          <StateReadout uf={selectedUf} />
-          <TopRanking data={topStates} year={selectedYear} />
-        </div>
-      </div>
-
-      <div className="mt-6 grid gap-6 xl:grid-cols-2">
-        <NationalTrend />
-        <CidPressure data={cidData} year={selectedYear} />
-      </div>
-
-      <div className="mt-6 grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-        <AgeProfile />
-        <CostAndStay />
-      </div>
-    </section>
   );
 }
 
@@ -553,7 +553,7 @@ export default function App() {
             <p className="mt-4 text-lg leading-relaxed text-slate-600">O DATASUS concentra uma das bases mais ricas da saúde pública brasileira. A barreira está em transformar tabelas técnicas em leitura rápida para quem precisa planejar leitos, orçamento e rede de cuidado.</p>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
-            <StatCard iconName="users" label="Cidade de SP" value={formatNumber(spCityTotal)} caption="Internações municipais no recorte da planilha, com período Fev/2019–Fev/2026." />
+            <StatCard iconName="users" label="Cidade de SP" value={formatNumber(spCityTotal)} caption="Internações municipais no recorte da planilha, com período Fev/2020–Fev/2026." />
             <StatCard iconName="activity" label="2025 em SP capital" value={formatNumber(spCity2025)} caption="Maior patamar anual do período consolidado no município." tone="coral" />
             <StatCard iconName="wallet" label="Participação estadual" value={formatPercent(spShare)} caption="São Paulo concentra quase um quarto do volume nacional acumulado." />
           </div>

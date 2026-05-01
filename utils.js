@@ -40,8 +40,8 @@ export function buildStates() {
   return Object.keys(ufNames).map((uf) => {
     const [name, region, x, y] = ufNames[uf];
     const total = ufRows.reduce((sum, row) => sum + row[uf], 0);
-    const first = ufRows[0][uf];
-    const last = ufRows[ufRows.length - 1][uf];
+    const first = ufRows.find((row) => row.year === 2020)[uf];
+    const last = ufRows.find((row) => row.year === 2025)[uf];
     const growth = ((last - first) / first) * 100;
     const share = (total / nationalTotal) * 100;
 

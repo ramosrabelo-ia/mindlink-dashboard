@@ -13,7 +13,6 @@ export const BRAND = {
 export const years = [2020, 2021, 2022, 2023, 2024, 2025];
 
 export const ufRows = [
-  { year: 2019, RO: 1469, AC: 1461, AM: 372, RR: 212, PA: 3092, AP: 129, TO: 1043, MA: 5247, PI: 2856, CE: 8249, RN: 2948, PB: 3899, PE: 6279, AL: 3891, SE: 1295, BA: 5837, MG: 18221, ES: 3261, RJ: 12344, SP: 59737, PR: 20032, SC: 14540, RS: 41609, MS: 1765, MT: 2323, GO: 10053, DF: 5061, Total: 237225 },
   { year: 2020, RO: 1470, AC: 1011, AM: 266, RR: 163, PA: 3255, AP: 100, TO: 1044, MA: 5009, PI: 2301, CE: 6791, RN: 3033, PB: 2995, PE: 5610, AL: 3274, SE: 875, BA: 4586, MG: 15048, ES: 3091, RJ: 9158, SP: 48425, PR: 17056, SC: 12163, RS: 33807, MS: 1463, MT: 1972, GO: 8639, DF: 3758, Total: 196363 },
   { year: 2021, RO: 1514, AC: 938, AM: 800, RR: 180, PA: 3853, AP: 87, TO: 997, MA: 5504, PI: 2636, CE: 7448, RN: 2944, PB: 3759, PE: 5889, AL: 3322, SE: 853, BA: 5001, MG: 15997, ES: 3043, RJ: 11070, SP: 47683, PR: 17779, SC: 13031, RS: 34334, MS: 1588, MT: 1862, GO: 8972, DF: 3916, Total: 205000 },
   { year: 2022, RO: 1499, AC: 1123, AM: 839, RR: 311, PA: 4181, AP: 130, TO: 1118, MA: 6001, PI: 2801, CE: 8599, RN: 3351, PB: 3947, PE: 6214, AL: 3437, SE: 996, BA: 5710, MG: 19344, ES: 2784, RJ: 12252, SP: 52963, PR: 17907, SC: 16038, RS: 37561, MS: 2502, MT: 2219, GO: 8934, DF: 4277, Total: 227038 },
@@ -31,14 +30,14 @@ export const ufNames = {
 };
 
 export const spCidRows = [
-  { cid: "Uso de substâncias psicoativas", short: "Substâncias", values: { 2019: 2004, 2020: 1828, 2021: 1394, 2022: 1513, 2023: 3878, 2024: 4720, 2025: 4809 }, avgCost: 1387.17, stay: 13.0 },
-  { cid: "Esquizofrenia e transtornos delirantes", short: "Esquizofrenia", values: { 2019: 5078, 2020: 4336, 2021: 4134, 2022: 3823, 2023: 4170, 2024: 4802, 2025: 5026 }, avgCost: 1519.17, stay: 16.8 },
-  { cid: "Transtornos de humor [afetivos]", short: "Humor", values: { 2019: 3319, 2020: 3078, 2021: 2881, 2022: 3017, 2023: 3444, 2024: 3806, 2025: 4112 }, avgCost: 879.68, stay: 13.3 },
-  { cid: "Uso de álcool", short: "Álcool", values: { 2019: 1513, 2020: 1428, 2021: 1120, 2022: 959, 2023: 995, 2024: 1067, 2025: 1063 }, avgCost: 1522.15, stay: 9.6 },
-  { cid: "Demência", short: "Demência", values: { 2019: 224, 2020: 205, 2021: 159, 2022: 225, 2023: 262, 2024: 246, 2025: 295 }, avgCost: 9802.84, stay: 38.8, insight: "Baixo volume, alto custo médio e maior permanência hospitalar no recorte 2020–2025."},
-  { cid: "Transtornos neuróticos/stress/somatoformes", short: "Stress", values: { 2019: 229, 2020: 231, 2021: 239, 2022: 188, 2023: 268, 2024: 276, 2025: 307 }, avgCost: 470.93, stay: 9.5 },
-  { cid: "Retardo mental", short: "Retardo", values: { 2019: 249, 2020: 221, 2021: 202, 2022: 258, 2023: 264, 2024: 276, 2025: 215 }, avgCost: 4315.63, stay: 25.5 },
-  { cid: "Outros transtornos mentais", short: "Outros", values: { 2019: 1264, 2020: 1099, 2021: 1018, 2022: 1139, 2023: 1249, 2024: 1363, 2025: 1444 }, avgCost: 1315.11, stay: 14.7 },
+  { cid: "Uso de substâncias psicoativas", short: "Substâncias", values: { 2020: 1828, 2021: 1394, 2022: 1513, 2023: 3878, 2024: 4720, 2025: 4809 }, avgCost: 1387.17, stay: 13.0 },
+  { cid: "Esquizofrenia e transtornos delirantes", short: "Esquizofrenia", values: { 2020: 4336, 2021: 4134, 2022: 3823, 2023: 4170, 2024: 4802, 2025: 5026 }, avgCost: 1519.17, stay: 16.8 },
+  { cid: "Transtornos de humor [afetivos]", short: "Humor", values: { 2020: 3078, 2021: 2881, 2022: 3017, 2023: 3444, 2024: 3806, 2025: 4112 }, avgCost: 879.68, stay: 13.3 },
+  { cid: "Uso de álcool", short: "Álcool", values: { 2020: 1428, 2021: 1120, 2022: 959, 2023: 995, 2024: 1067, 2025: 1063 }, avgCost: 1522.15, stay: 9.6 },
+  { cid: "Demência", short: "Demência", values: { 2020: 205, 2021: 159, 2022: 225, 2023: 262, 2024: 246, 2025: 295 }, avgCost: 9802.84, stay: 38.8, insight: "Baixo volume, alto custo médio e maior permanência hospitalar no recorte 2020–2025."},
+  { cid: "Transtornos neuróticos/stress/somatoformes", short: "Stress", values: { 2020: 231, 2021: 239, 2022: 188, 2023: 268, 2024: 276, 2025: 307 }, avgCost: 470.93, stay: 9.5 },
+  { cid: "Retardo mental", short: "Retardo", values: { 2020: 221, 2021: 202, 2022: 258, 2023: 264, 2024: 276, 2025: 215 }, avgCost: 4315.63, stay: 25.5 },
+  { cid: "Outros transtornos mentais", short: "Outros", values: { 2020: 1099, 2021: 1018, 2022: 1139, 2023: 1249, 2024: 1363, 2025: 1444 }, avgCost: 1315.11, stay: 14.7 },
 ];
 
 export const spAgeRows = [
@@ -48,9 +47,9 @@ export const spAgeRows = [
 ];
 
 export const spAvgCost = [
-  { year: 2019, value: 1611.17 }, { year: 2020, value: 1689.52 }, { year: 2021, value: 1654.3 }, { year: 2022, value: 1535.22 }, { year: 2023, value: 1387.08 }, { year: 2024, value: 1314.36 }, { year: 2025, value: 1264.28 },
+  { year: 2020, value: 1689.52 }, { year: 2021, value: 1654.3 }, { year: 2022, value: 1535.22 }, { year: 2023, value: 1387.08 }, { year: 2024, value: 1314.36 }, { year: 2025, value: 1264.28 },
 ];
 
 export const spStay = [
-  { year: 2019, value: 18.7 }, { year: 2020, value: 13.7 }, { year: 2021, value: 13.0 }, { year: 2022, value: 13.0 }, { year: 2023, value: 14.3 }, { year: 2024, value: 14.9 }, { year: 2025, value: 15.6 },
+  { year: 2020, value: 13.7 }, { year: 2021, value: 13.0 }, { year: 2022, value: 13.0 }, { year: 2023, value: 14.3 }, { year: 2024, value: 14.9 }, { year: 2025, value: 15.6 },
 ];
